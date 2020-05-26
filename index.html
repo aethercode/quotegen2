@@ -10,19 +10,44 @@
     </head>
 
     <body>
-        <div class="container">
-            <h1 class="mt-3">
-                Quote Generator <button type="button" class="btn btn-dark" onclick="gen()">Generate Quote</button>
-            </h1>
-            <div class="jumbotron bg-dark">
-                <h2 id="quote" v-bind:style="{color: color}">
+        <div class="jumbotron jumbotron-fluid bg-dark">
+            <div class="container">
+                <h2 class="display-4 text-center" id="quote" v-bind:style="{color: color}">
                     "{{ message }}"
                 </h2>
             </div>
         </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-link" onclick="startGen()">New Quote</button>
+                    <button id="savebutton" type="button" class="btn btn-link" onclick="save()" :disabled="disabled">Save Quote</button>
+                </div>
+
+                <div class="col text-right" id="checkboxes">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="general" v-model="general" disabled>
+                        <label class="form-check-label" for="general">general</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="shoulders" v-model="shoulders">
+                        <label class="form-check-label" for="shoulders">shoulders</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="coolkids" v-model="coolkids">
+                        <label class="form-check-label" for="coolkids">cool kids</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center" id="saved">
+            <button type="button" class="btn btn-link btn-sm" v-if="filled" v-on:click="clear">Clear</button>
+            <div v-for="quote in quotes">"{{ quote.text }}"</div>
+        </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="words.js"></script>
         <script src="quote.js"></script>
     </body>
 </html>
